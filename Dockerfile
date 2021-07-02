@@ -24,9 +24,9 @@ RUN cd /root \
 	&& chmod +x ./ghcup \
 	&& mv ghcup /usr/local/bin
 	
-RUN ghcup install ghc "${GHC}" --set && ghcup install cabal --set
+RUN ghcup install ghc $GHC --set && ghcup install cabal --set
 
-RUN PATH=~/.cabal/bin:~/.ghcup/bin:$PATH \
-    ghcup compile ghc -v 8.10.5 -x aarch64-linux-gnu -b $GHC --set
+RUN PATH=/root/.cabal/bin:/root/.ghcup/bin:$PATH \
+    ghcup compile ghc -v $GHC -x aarch64-linux-gnu -b $GHC --set
 
 CMD ["/bin/bash"]
