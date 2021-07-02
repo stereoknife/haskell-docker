@@ -26,6 +26,6 @@ RUN cd /root \
 	
 RUN ghcup install ghc --set && ghcup install cabal --set
 
-RUN ghcup compile ghc -v 9.0.1 -x aarch64-linux-gnu -b 9.0.1 --set
+RUN ghcup compile ghc -v 8.10.5 -x aarch64-linux-gnu -b 8.10.5 --set
 
 CMD ["/bin/bash"]
