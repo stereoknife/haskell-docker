@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	gcc-multilib
 
 RUN cd /root \
-	&& curl "https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz" -o arm-toolchain.tar.xz \
-	&& tar -xf arm-toolchain.tar.xz \
+	&& curl "https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz" -Lo arm-toolchain.tar.xz \
+	&& tar -xf arm-toolchain.tar.xz
 
 RUN cd /root \
 	&& curl "https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup" -o ghcup \
