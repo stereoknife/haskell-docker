@@ -32,6 +32,6 @@ RUN ghcup install ghc $GHC --set && ghcup install cabal --set
 
 ENV PATH=/root/armtoolchain/bin:/root/.cabal/bin:/root/.ghcup/bin:$PATH
 
-RUN ghcup compile ghc -v $GHC -x aarch64-linux-gnu -b $GHC --set
+RUN ghcup compile ghc -v $GHC -x aarch64-none-linux-gnu -b $GHC --set
 
 CMD ["/bin/bash"]
