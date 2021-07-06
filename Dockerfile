@@ -1,6 +1,6 @@
 FROM ubuntu:rolling
 
-ARG GHC=9.0.1
+ARG GHC=8.10.5
 ARG CABAL=3.4
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -20,8 +20,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 	gcc-multilib
 
 RUN cd /root \
-	&& curl "https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz" -Lo arm-toolchain.tar.xz \
-	&& tar -xf arm-toolchain.tar.xz
+	&& curl "https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz" \
+	-Lo gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz \
+	&& tar -xf gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz
 
 RUN cd /root \
 	&& curl "https://downloads.haskell.org/~ghcup/x86_64-linux-ghcup" -o ghcup \
@@ -30,7 +31,7 @@ RUN cd /root \
 
 RUN ghcup install ghc $GHC --set && ghcup install cabal --set
 
-ENV PATH=/root/arm-toolchain/bin:/root/.cabal/bin:/root/.ghcup/bin:$PATH
+ENV PATH=/root/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin:/root/.cabal/bin:/root/.ghcup/bin:$PATH
 
 RUN echo $PATH
 
