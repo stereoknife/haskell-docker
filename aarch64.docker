@@ -9,13 +9,13 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 RUN cd /root \
     && curl "https://downloads.haskell.org/~ghc/8.10.5/ghc-8.10.5-aarch64-deb10-linux.tar.xz" -o ghc.tar.xz \
     && tar -xf ghc.tar.xz \
-    && cd ghc-8.10.5
-    && ./configure
+    && cd ghc-8.10.5 \
+    && ./configure \
     && make install
     
 RUN cd /root \
     && curl "https://downloads.haskell.org/~cabal/cabal-install-3.4.0.0/cabal-install-3.4.0.0-aarch64-ubuntu-18.04.tar.xz" -o cabal-install.tar.xz \
-    && tar -xf cabal-install.tar.xz
+    && tar -xf cabal-install.tar.xz \
     && mv cabal /usr/bin/cabal
 
 CMD ["ghci"]
