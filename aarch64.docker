@@ -13,7 +13,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     libtinfo5 \
     libnuma-dev \
     zlib1g-dev \
-    gcc-multilib \
     autoconf
 
 RUN cd /root \
