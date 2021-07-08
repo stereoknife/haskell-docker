@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     libnuma-dev \
     zlib1g-dev \
     gcc-multilib \
-    autoconf \
+    autoconf
 
 RUN cd /root \
     && curl "https://downloads.haskell.org/~ghc/8.10.5/ghc-8.10.5-aarch64-deb10-linux.tar.xz" -o ghc.tar.xz \
