@@ -18,4 +18,4 @@ RUN cd /root \
     && tar -xf cabal-install.tar.xz
     && mv cabal /usr/bin/cabal
 
-CMD ["/bin/bash"]
+CMD ["ghci"]
