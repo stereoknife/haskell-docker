@@ -25,7 +25,7 @@ RUN cd /root \
 RUN cd /root \
     && curl "https://downloads.haskell.org/~cabal/cabal-install-3.4.0.0/cabal-install-3.4.0.0-aarch64-ubuntu-18.04.tar.xz" -o cabal-install.tar.xz \
     && tar -xf cabal-install.tar.xz \
-    && mv cabal /usr/bin/cabal
+    && mv cabal /usr/bin/cabal \
     && cabal update
 
 CMD ["ghci"]
