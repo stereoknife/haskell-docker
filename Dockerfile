@@ -20,8 +20,8 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 
 RUN cd /root \
     && if [ "$TARGETARCH" = "arm64/v8" ] ;\
-        then GHC_URL="https://downloads.haskell.org/~ghc/$ghc/ghc-$ghc-aarch64-deb10-linux.tar.xz" ;\ 
-        else GHC_URL="https://downloads.haskell.org/~ghc/$ghc/ghc-$ghc-x86_64-deb10-linux.tar.xz" ; fi\
+        then GHC_URL="https://downloads.haskell.org/~ghc/${ghc}/ghc-${ghc}-aarch64-deb10-linux.tar.xz" ;\ 
+        else GHC_URL="https://downloads.haskell.org/~ghc/${ghc}/ghc-${ghc}-x86_64-deb10-linux.tar.xz" ; fi\
     && curl $GHC_URL -o ghc.tar.xz \
     && tar -xf ghc.tar.xz \
     && cd ghc-8.10.5 \
