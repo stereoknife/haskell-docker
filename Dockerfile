@@ -1,7 +1,8 @@
 ARG system=latest
-ARG ghc="8.10.5"
 FROM ubuntu:${system}
+
 ARG TARGETARCH
+ARG ghc="8.10.5"
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
     autoconf \
