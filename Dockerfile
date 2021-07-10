@@ -4,19 +4,19 @@ FROM ubuntu:${system}
 ARG TARGETARCH
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    curl \
-    ca-certificates \
+    autoconf \
     build-essential \
-    llvm \
+    ca-certificates \
+    curl \
     libffi-dev \
-    libffi8ubuntu1 \
     libgmp10 \
     libncurses5 \
     libncursesw5-dev\
-    libtinfo5 \
     libnuma-dev \
-    zlib1g-dev \
-    autoconf
+    libtinfo5 \
+    llvm \
+    zlib1g-dev
+    # libffi8ubuntu1
 
 RUN cd /root \
     && if [ "$TARGETARCH" = "arm64/v8" ] ;\
