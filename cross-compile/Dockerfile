@@ -1,4 +1,8 @@
-FROM arm64v8/ubuntu:rolling
+ARG system=latest
+ARG ghc="8.10.5"
+ARG xplatform
+FROM ubuntu:${system}
+ARG TARGETARCH
 
 # Dependencies from https://gitlab.haskell.org/ghc/ghc/-/wikis/building/preparation/linux
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -28,11 +32,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     mmv
     
 RUN cd /root \
-    && curl "https://downloads.haskell.org/~cabal/cabal-install-3.4.0.0/cabal-install-3.4.0.0-aarch64-ubuntu-18.04.tar.xz" -o cabal-install.tar.xz \
+    && if [ "$TARGETARCH" = "arm64/v8" ] ;\
+        then CABAL_URL="https://downloads.haskell.org/~cabal/cabal-install-3.4.0.0/cabal-install-3.4.0.0-aarch64-ubuntu-18.04.tar.xz" ;\ 
+        else CABAL_URL="https://downloads.haskell.org/~cabal/cabal-install-3.4.0.0/cabal-install-3.4.0.0-x86_64-ubuntu-16.04.tar.xz" ; fi\
+    && curl $CABAL_URL -o cabal-install.tar.xz \
     && tar -xf cabal-install.tar.xz \
     && mv cabal /usr/bin/cabal \
-    && rm cabal-install.tar.xz \
-    && cabal update
+    && rm cabal-install.tar.xz
 
 RUN cd /root \
     && curl "https://developer.arm.com/-/media/Files/downloads/gnu-a/10.2-2020.11/binrel/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz?revision=972019b5-912f-4ae6-864a-f61f570e2e7e&la=en&hash=B8618949E6095C87E4C9FFA1648CAA67D4997D88" -Lo gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu.tar.xz \
@@ -49,9 +55,10 @@ COPY build.mk /root/ghc-8.10.5/mk/build.mk
 
 ENV PATH=/root/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/bin:/root/.cabal/bin:/root/.ghcup/bin:$PATH
 
-RUN cd /root/ghc-8.10.5 \
+RUN if [ "$TARGETARCH" = "arm64/v8" ] ; then TARGETARCH="aarch64" ; else TARGETARCH="x86_64" ; fi \
+    cd /root/ghc-8.10.5 \
     && ./boot \
-    && ./configure --host x86_64-unknown-linux-gnu --platform aarch64-unknown-linux-gnu \
+    && ./configure --host $TARGETARCH-unknown-linux-gnu --platform $xplatform-unknown-linux-gnu \
     && cd /root
     && rm ghc-8.10.5-src.tar.xz
     && rm -rf ghc-8.10.5
